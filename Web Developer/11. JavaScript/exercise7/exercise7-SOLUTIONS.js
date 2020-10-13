@@ -1,7 +1,7 @@
 // Create an object and an array which we will use in our facebook exercise. 
 
 // 1. Create an object that has properties "username" and "password". Fill those values in with strings.
-{
+var user = {
 	username: "andrei",
 	password: "supersecret"
 }
