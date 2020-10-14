@@ -1,14 +1,19 @@
-var button = document.getElementById("enter");
+var enterButton = document.getElementById("enter");
 var input = document.getElementById("userinput");
 var ul = document.querySelector("ul");
-
 function inputLength() {
 	return input.value.length;
 }
 
 function createListElement() {
 	var li = document.createElement("li");
-	li.appendChild(document.createTextNode(input.value));
+	li.appendChild(document.createTextNode(input.value + " "));
+
+	var button = document.createElement("button");
+	button.innerText = "Delete";
+	button.className = "delete";
+
+	li.appendChild(button);
 	ul.appendChild(li);
 	input.value = "";
 }
@@ -25,6 +30,25 @@ function addListAfterKeypress(event) {
 	}
 }
 
-button.addEventListener("click", addListAfterClick);
+function toggleDone(event) {
+	event.target.classList.toggle("done");
+}
 
+function deleteListItem(event) {
+	var itemToDelete = event.target.parentNode
+	ul.removeChild(itemToDelete);
+}
+
+function respondToListClick(event) {
+	if (event.target) {
+		if (event.target.matches("li")) {
+			toggleDone(event);
+		} else if (event.target.matches("button") && event.target.classList.contains("delete")) {
+			deleteListItem(event);
+		}
+	}
+}
+
+enterButton.addEventListener("click", addListAfterClick);
 input.addEventListener("keypress", addListAfterKeypress);
+ul.addEventListener("click", respondToListClick);
