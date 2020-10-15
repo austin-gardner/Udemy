@@ -35,8 +35,7 @@ function toggleDone(event) {
 }
 
 function deleteListItem(event) {
-	var itemToDelete = event.target.parentNode
-	ul.removeChild(itemToDelete);
+	event.target.parentNode.remove();
 }
 
 function respondToListClick(event) {
