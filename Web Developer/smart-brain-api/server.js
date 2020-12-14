@@ -4,10 +4,23 @@ const cors = require('cors');
 const knex = require('knex');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const Clarifai = require('clarifai');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+const app = new Clarifai.App({
+    apiKey: '4ad6313329ec4efbabaad9d5386f1a62'
+});
+
+app.post('/imageurl', (req, res) => {
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+    .then(data => {
+        res.json(data);
+    })
+    .catch(err => res.status(400).json('uable to work with API'));
+})
 
 const db = knex({
     client: 'pg',
